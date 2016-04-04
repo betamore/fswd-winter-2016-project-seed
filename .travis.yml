@@ -1,0 +1,10 @@
+language: node_js
+node_js:
+  - "stable"
+
+services:
+  - postgresql
+  - redis-server
+
+before_install:
+  - psql -c 'create database fswd_2016_test;' -U postgres
