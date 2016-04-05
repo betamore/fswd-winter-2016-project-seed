@@ -6,7 +6,7 @@ var gulp = require('gulp'),
     karma = require('karma');
 
 var paths = {
-  express: ['lib/**/*.js'],
+  express: ['lib/**/*.js', 'models/**/!(index).js'],
   angular: ['js/**/*.js'],
   tests: {
     backend: ['test/server/**/*-spec.js']
@@ -27,7 +27,8 @@ gulp.task('test:backend', ['test:backend:pre'], function() {
 });
 
 gulp.task('watch:test:backend', function() {
-    return gulp.watch(paths.express.concat(paths.tests.backend), ['test:backend']);
+  gulp.run('test:backend');
+  return gulp.watch(paths.express.concat(paths.tests.backend), ['test:backend']);
 });
 
 gulp.task('test:frontend', function(done) {
@@ -37,5 +38,7 @@ gulp.task('test:frontend', function(done) {
   }, done).start();
 });
 
-gulp.task('test', ['test:backend', 'test:frontend']);
+gulp.task('test', ['test:backend'], function() {
+  process.exit();
+});
 gulp.task('default');

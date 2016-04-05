@@ -23,11 +23,15 @@ html
       .container
         .navbar-header
           a.navbar-brand(href="#") FSWD
-        .collapse.navbar-collapse
+        .collapse.navbar-collapse.navbar-right
           if !isAuthenticated()
-            button.btn.btn-default.navbar-btn.navbar-right Sign In
+            ul.nav.navbar-nav
+              li.nav.navbar-nav
+                a(href='/user/login') Sign In
+              li.nav.navbar-nav
+                a(href='/user/register') Register
           else
-            p.navbar-text.navbar-right Hi #{user.username}
+            p.navbar-text.navbar-right Hello #{user.username}!
     .container
       .well
         block body

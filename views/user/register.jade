@@ -1,0 +1,23 @@
+extends ../layout.jade
+
+block body
+  h1 Register!
+
+  form(novalidate method="POST" action="/user/register" name="registrationForm")
+    .form-group(ng-class="{ 'has-error': !registrationForm.username.$valid }")
+      label(for="username") Username
+      input.form-control(type="text" required name="username" ng-model="username"
+        ng-model-options="{ debounce: 2000 }" unique-username)
+      br
+      div.alert.alert-warning(ng-hide="registrationForm.username.$valid")
+        p(ng-show="registrationForm.username.$error.required") Username is required.
+        p(ng-show="registrationForm.username.$error.uniqueUsername") Username must be unique.
+    .form-group
+      label(for="email") Email
+      input.form-control(type="email" required name="email" ng-model="email")
+    .form-group(ng-class="{ 'has-error': (registrationForm.password.$dirty || registrationForm.password_confirm.$dirty) && (registrationForm.password.$modelValue !== registrationForm.password_confirm.$modelValue) }")
+      label(for="password") Password
+      input.form-control(type="password" required name="password" ng-model="password")
+      label(for="password_confirm") Confirm Password
+      input.form-control(type="password" required name="password_confirm" ng-model="password_confirm")
+    button.btn.btn-default(type="submit" ng-disabled="!registrationForm.$valid") Register

@@ -1,6 +1,9 @@
 extends ./layout.jade
 
 block body
-  h1 Hello #{username}!
+  if isAuthenticated()
+    h1 Hello #{user.username}!
+  else
+    h1 Hello stranger…
   
   ng-view

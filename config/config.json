@@ -2,7 +2,7 @@
   "development": {
     "username": "postgres",
     "password": null,
-      "database": "fswd_2016_development",
+    "database": "fswd_2016_development",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
@@ -11,13 +11,11 @@
     "password": null,
     "database": "fswd_2016_test",
     "host": "127.0.0.1",
-    "dialect": "postgres"
+    "dialect": "postgres",
+    "logging": false,
+    "pool": false
   },
   "production": {
-    "username": "postgres",
-    "password": null,
-    "database": "fswd_2016_production",
-    "host": "127.0.0.1",
-    "dialect": "postgres"
+    "use_env_variable": "DATABASE_URL"
   }
 }
