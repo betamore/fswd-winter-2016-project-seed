@@ -19,6 +19,10 @@ describe('users', function() {
     agent = request(app);
   });
 
+  after(function() {
+    return User.truncate();
+  });
+
   describe('registration', function() {
     it('should have a registration page', function() {
       return agent
@@ -58,7 +62,7 @@ describe('users', function() {
 
     describe('when a user already exists', function() {
       var existingUser;
-      beforeEach(function() {
+      before(function() {
         return User.create({ username: 'PreExistingUser', password: 'TheirPassword' })
           .then(function(user) {
             existingUser = user;
@@ -122,11 +126,12 @@ describe('users', function() {
     });
 
     describe('when there are users', function() {
-      beforeEach(function(done) {
-        User.create({ username: 'PreExistingUser', password: 'TheirPassword' })
-        .then(function() {
-          done();
-        });
+      before(function() {
+        return User.create({ username: 'PreExistingUser', password: 'TheirPassword' });
+      });
+
+      after(function() {
+        return User.truncate();
       });
 
       describe('for a form login', function() {

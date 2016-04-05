@@ -4,6 +4,6 @@ var db = require('../../models');
 
 require('chai').should();
 
-beforeEach(function() {
+before(function() {
   return db.sequelize.sync({ force: true });
 });
