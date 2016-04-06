@@ -5,7 +5,8 @@ var gulp = require('gulp'),
     istanbul = require('gulp-istanbul'),
     karma = require('karma'),
     gutil = require('gulp-util'),
-    gls = require('gulp-live-server');
+    gls = require('gulp-live-server'),
+    webpack = require('webpack');
 
 var paths = {
   express: ['lib/**/*.js', 'models/**/!(index).js'],
@@ -54,4 +55,13 @@ gulp.task('test:frontend', function(done) {
 gulp.task('test', ['test:backend'], function() {
   process.exit();
 });
-gulp.task('default', ['server']);
+
+gulp.task('webpack', function(done) {
+  webpack(require('./webpack.config.js'), function() { done() });
+});
+
+gulp.task('watch:webpack', ['webpack'], function() {
+  return gulp.watch(paths.angular, ['webpack']);
+});
+
+gulp.task('default', ['server', 'watch:webpack']);

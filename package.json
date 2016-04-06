@@ -4,14 +4,15 @@
   "description": "Full Stack Web Development Winter 2016 Project Seed",
   "main": "lib/server.js",
   "scripts": {
+    "start": "webpack && node ./lib/server.js",
     "test": "gulp test"
   },
   "author": "David Raynes",
   "license": "ISC",
   "dependencies": {
     "angular": "^1.5.3",
-    "app-module-path": "^1.0.6",
     "angular-route": "^1.5.3",
+    "app-module-path": "^1.0.6",
     "bcrypt": "^0.8.5",
     "body-parser": "^1.15.0",
     "connect-redis": "^3.0.2",
