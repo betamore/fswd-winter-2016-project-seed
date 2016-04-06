@@ -21,6 +21,17 @@ module.exports = function(sequelize, DataTypes) {
       isValidPassword: function(password) {
         return bcrypt.compareSync(password, this.password);
       }
+    },
+    hooks: {
+      // see http://docs.sequelizejs.com/en/latest/docs/hooks/
+      beforeCreate: function(user) {
+        // perform any operations on a user before
+        // they are created in the database
+        console.log('User to be created: ' + user.username);
+      },
+      afterCreate: function(user) {
+        console.log('User "' + user.username + '" created with id ' + user.id);
+      }
     }
   });
   return User;

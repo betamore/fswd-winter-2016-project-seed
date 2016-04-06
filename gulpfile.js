@@ -3,7 +3,9 @@
 var gulp = require('gulp'),
     mocha = require('gulp-mocha'),
     istanbul = require('gulp-istanbul'),
-    karma = require('karma');
+    karma = require('karma'),
+    gutil = require('gulp-util'),
+    gls = require('gulp-live-server');
 
 var paths = {
   express: ['lib/**/*.js', 'models/**/!(index).js'],
@@ -12,6 +14,17 @@ var paths = {
     backend: ['test/server/**/*-spec.js']
   }
 };
+
+gulp.task('server', function() {
+  var server = gls('.');
+  server.start().then(function(result) {
+    gutil.log('Server exited with result:', result);
+  });
+  return gulp.watch(paths.express, function(file) {
+    gutil.log(file);
+    server.start.apply(server);
+  });
+});
 
 gulp.task('test:backend:pre', function() {
     return gulp.src(paths.express)
@@ -41,4 +54,4 @@ gulp.task('test:frontend', function(done) {
 gulp.task('test', ['test:backend'], function() {
   process.exit();
 });
-gulp.task('default');
+gulp.task('default', ['server']);

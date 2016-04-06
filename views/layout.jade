@@ -31,7 +31,11 @@ html
               li.nav.navbar-nav
                 a(href='/user/register') Register
           else
-            p.navbar-text.navbar-right Hello #{user.username}!
+            ul.nav.navbar-nav.navbar-right
+              li.nav.navbar-nav
+                a(href='/user/logout') Logout
+            p.navbar-text.navbar-right
+              | Hello #{user.username}!
     .container
       .well
         block body
