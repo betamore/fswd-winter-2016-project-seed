@@ -6,7 +6,8 @@ var gulp = require('gulp'),
     karma = require('karma'),
     gutil = require('gulp-util'),
     gls = require('gulp-live-server'),
-    webpack = require('webpack');
+    webpack = require('webpack'),
+    sequence = require('gulp-sequence');
 
 var paths = {
   express: ['lib/**/*.js', 'models/**/!(index).js'],
@@ -52,8 +53,17 @@ gulp.task('test:frontend', function(done) {
   }, done).start();
 });
 
-gulp.task('test', ['test:backend'], function() {
-  process.exit();
+gulp.task('watch:test:frontend', function(done) {
+  new karma.Server({
+    configFile: __dirname + '/test/karma.conf.js'
+  }, done).start();
+});
+
+gulp.task('test', function(cb) {
+  sequence('test:backend', 'test:frontend', function() {
+    cb();
+    process.exit();
+  });
 });
 
 gulp.task('webpack', function(done) {
