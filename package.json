@@ -5,6 +5,7 @@
   "main": "lib/server.js",
   "scripts": {
     "start": "webpack && node ./lib/server.js",
+    "postinstall": "sequelize db:migrate",
     "test": "gulp test"
   },
   "author": "David Raynes",
